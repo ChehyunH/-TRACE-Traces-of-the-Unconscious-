@@ -68,7 +68,8 @@ def make_unique_session_dir(root="gallery"):
 
 def tone_map_mean_image(img_f32):
     x = np.clip(img_f32 / 255.0, 0.0, 1.0).astype(np.float32)
-    lift, gamma, sat = 0.01, 0.58, 1.8
+    sat = 1.15 if current_mode == 'PICASSO' else 1.8
+    lift, gamma = 0.01, 0.58 
     x = np.clip(x + lift, 0.0, 1.0)
     x = np.power(x, gamma)
     mean = x.mean(axis=2, keepdims=True)
@@ -89,7 +90,7 @@ def save_array_as_png(arr_u8, path):
 def create_final_trace_from_raw(raw_list, out_path):
     if not raw_list: return
     float_frames = [arr.astype(np.float32) for arr in raw_list]
-    final_accum = np.maximum.reduce(float_frames)
+    final_accum = np.mean(float_frames, axis=0)
     f_min, f_max = final_accum.min(), final_accum.max()
     if f_max > f_min:
         final_accum = (final_accum - f_min) / (f_max - f_min + 1e-6) * 255.0
@@ -262,6 +263,8 @@ def run_system():
         # 1. 배경 채우기 (모네 모드 하얗게 방지)
         if current_mode == "MONET":
             canvas.fill((15, 20, 30, 50)) 
+        elif current_mode == "PICASSO":
+            canvas.fill((18, 18, 18, 16))
         else:
             canvas.fill((15, 20, 15, 16))
 
