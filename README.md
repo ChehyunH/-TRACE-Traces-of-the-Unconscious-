@@ -1,5 +1,5 @@
 # 🧠 TRACE: Traces of the Unconscious
-> **심박으로 기록되는, 보이지 않던 시간**
+> **심박으로 기록되는 보이지 않던 시간**
 
 ---
 
