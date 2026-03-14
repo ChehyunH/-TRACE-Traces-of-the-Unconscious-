@@ -240,8 +240,8 @@ Example:
 
 gallery/
 
-20260314/  
-session_20260314_153012/  
+20260126/  
+session_20260126_153012/  
 
 summary_001.png  
 summary_002.png  
